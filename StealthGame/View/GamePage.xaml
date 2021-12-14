@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             xmlns:viewmodel="clr-namespace:StealthGame.ViewModel"
+             x:DataType="viewmodel:StealthGameViewModel"
+             x:Class="StealthGame.View.GamePage"
+             Title="StealthGame">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MainLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="Margin" Value="1" />
+            </Style>
+            <Style x:Key="MainButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="BackgroundColor" Value="Cyan" />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="HeightRequest" Value="30" />
+            </Style>
+            <Style x:Key="ControlButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="HeightRequest" Value="30" />
+            </Style>
+            <Style x:Key="FieldStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Style.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFloor}" Value="True">
+                        <Setter Property="Background" Value="White" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsWall}" Value="True">
+                        <Setter Property="Background" Value="Black" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsExit}" Value="True">
+                        <Setter Property="Background" Value="Green" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsVision}" Value="True">
+                        <Setter Property="Background" Value="LightBlue" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsVisionPlayer}" Value="True">
+                        <Setter Property="Background" Value="LightBlue" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsGuard}" Value="True">
+                        <!-- <Setter Property="ImageSource" Value="Icons/guard.png" /> -->
+                        <Setter Property="Background" Value="Red" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsPlayer}" Value="True">
+                        <!-- <Setter Property="ImageSource" Value="Icons/player.png" /> -->
+                        <Setter Property="Background" Value="Blue" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" Orientation="Horizontal">
+            <Button Text="Settings" Command="{Binding SettingsCommand}" Style="{StaticResource MainButtonStyle}" />
+            <Button Text="Pause" Command="{Binding PauseCommand}" Style="{StaticResource MainButtonStyle}" IsEnabled="{Binding EnablePause}" />
+            <Button Text="Resume" Command="{Binding ResumeCommand}" Style="{StaticResource MainButtonStyle}" IsEnabled="{Binding EnableResume}" />
+            <Button Text="Help" Command="{Binding HelpCommand}" Style="{StaticResource MainButtonStyle}" />
+        </StackLayout>
+
+        <controls:FlowListView Grid.Row="1" FlowColumnCount="{Binding TableSize}" RowHeight="30" FlowItemsSource="{Binding Fields}" SeparatorVisibility="Default" HorizontalOptions="StartAndExpand">
+            <controls:FlowListView.FlowColumnTemplate>
+                <DataTemplate>
+                    <Button Style="{StaticResource FieldStyle}" VerticalOptions="FillAndExpand" />
+                </DataTemplate>
+            </controls:FlowListView.FlowColumnTemplate>
+        </controls:FlowListView>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal">
+            <Button Text="Move up" Command="{Binding MovePlayerVertical}" CommandParameter="{Binding RowUp}" Style="{StaticResource ControlButtonStyle}" IsEnabled="{Binding EnablePause}" />
+            <Button Text="Move down" Command="{Binding MovePlayerVertical}" CommandParameter="{Binding RowDown}" Style="{StaticResource ControlButtonStyle}" IsEnabled="{Binding EnablePause}" />
+            <Button Text="Move left" Command="{Binding MovePlayerHorizontal}" CommandParameter="{Binding ColLeft}" Style="{StaticResource ControlButtonStyle}" IsEnabled="{Binding EnablePause}" />
+            <Button Text="Move right" Command="{Binding MovePlayerHorizontal}" CommandParameter="{Binding ColRight}" Style="{StaticResource ControlButtonStyle}" IsEnabled="{Binding EnablePause}" />
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

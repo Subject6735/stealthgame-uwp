@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodel="clr-namespace:StealthGame.ViewModel" x:DataType="viewmodel:StealthGameViewModel"
+             x:Class="StealthGame.View.SettingsPage"
+             Title="Settings">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MainLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="Margin" Value="1" />
+            </Style>
+            <Style x:Key="MainButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="BackgroundColor" Value="Cyan" />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="BorderColor" Value="Black" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="HeightRequest" Value="30" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Orientation="Vertical">
+        <Button Command="{Binding NewGameCommand}" Text="New game" Style="{StaticResource MainButtonStyle}" />
+        <Button Command="{Binding LoadGameCommand}" Text="Load game" Style="{StaticResource MainButtonStyle}" />
+        <Button Command="{Binding SaveGameCommand}" Text="Save game" Style="{StaticResource MainButtonStyle}" />
+        <Button Command="{Binding QuitGameCommand}" Text="Quit game" Style="{StaticResource MainButtonStyle}" />
+
+        <Label Text="Difficulty" Style="{StaticResource MainLabelStyle}" />
+        <StackLayout Orientation="Horizontal">
+            <Switch IsToggled="{Binding IsGameEasy}" />
+            <Label Text="Easy" Style="{StaticResource MainLabelStyle}" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Switch IsToggled="{Binding IsGameMedium}" />
+            <Label Text="Medium" Style="{StaticResource MainLabelStyle}" />
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Switch IsToggled="{Binding IsGameHard}" />
+            <Label Text="Hard" Style="{StaticResource MainLabelStyle}" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
